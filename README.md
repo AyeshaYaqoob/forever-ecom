@@ -68,7 +68,7 @@ npm run dev
 
 - **Store**: http://localhost:5173
 - **Admin Panel**: http://localhost:5173/admin
-- **API**: http://localhost:5000/api
+- **API**: http://localhost:5253/api
 
 ## Features
 
@@ -212,7 +212,7 @@ npm run dev
 
 ### Frontend (.env)
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:5253/api
 VITE_STRIPE_PUBLIC_KEY=pk_test_...
 ```
 

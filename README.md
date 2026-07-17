@@ -13,7 +13,7 @@ FOREVER is a modern e-commerce platform built with cutting-edge technologies, of
 ```
 /mnt/okcomputer/output/
 ├── forever-backend/     # ASP.NET Core Web API (C#) + PostgreSQL
-└── app/                 # React + TypeScript Frontend
+└── forever-frontend/    # React + TypeScript Frontend
 ```
 
 ## Quick Start
@@ -33,7 +33,7 @@ cd forever-backend/ForeverEcom.API
 # Update appsettings.json with your PostgreSQL connection string
 
 # Frontend (in a new terminal)
-cd app
+cd forever-frontend
 npm install
 cp .env.example .env
 # Edit .env with your API URL
@@ -60,7 +60,7 @@ cd forever-backend/ForeverEcom.API
 dotnet run
 
 # Frontend (port 5173)
-cd app
+cd forever-frontend
 npm run dev
 ```
 

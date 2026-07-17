@@ -65,7 +65,7 @@ npm run build
 ## Project Structure
 
 ```
-app/
+forever-frontend/
 ├── src/
 │   ├── components/      # Reusable components
 │   ├── contexts/        # React contexts (theme)

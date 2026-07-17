@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: forever_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: forever_password
+      POSTGRES_DB: forever_ecom
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ./forever-backend
+      dockerfile: Dockerfile
+    container_name: forever_api
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=forever_ecom;Username=postgres;Password=forever_password
+      - Jwt__Key=your_super_secret_docker_production_jwt_key_here_that_is_long_enough
+      - Jwt__Issuer=forever-ecom
+      - Jwt__Audience=forever-users
+    ports:
+      - "5253:8080"
+    restart: unless-stopped
+
+  client:
+    build:
+      context: ./forever-frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:5253/api
+    container_name: forever_client
+    depends_on:
+      - api
+    ports:
+      - "5173:80"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

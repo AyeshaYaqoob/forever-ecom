@@ -49,7 +49,7 @@ cp .env.example .env
 
 Edit `.env`:
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:5253/api
 ```
 
 3. **Start development server**:
@@ -126,7 +126,7 @@ app/
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `VITE_API_URL` | Backend API URL | `http://localhost:5000/api` |
+| `VITE_API_URL` | Backend API URL | `http://localhost:5253/api` |
 
 ## License
 

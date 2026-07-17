@@ -12,7 +12,7 @@ FOREVER is a modern e-commerce platform built with cutting-edge technologies, of
 
 ```
 /mnt/okcomputer/output/
-├── forever-backend/     # Node.js + Express + TypeScript API
+├── forever-backend/     # ASP.NET Core Web API (C#) + PostgreSQL
 └── app/                 # React + TypeScript Frontend
 ```
 
@@ -20,18 +20,17 @@ FOREVER is a modern e-commerce platform built with cutting-edge technologies, of
 
 ### Prerequisites
 
-- Node.js 18+ 
-- MongoDB (local or Atlas)
+- Node.js 18+ (for Frontend)
+- .NET 8 SDK or later
+- PostgreSQL
 - Git
 
 ### 1. Clone and Setup
 
 ```bash
 # Backend
-cd forever-backend
-npm install
-cp .env.example .env
-# Edit .env with your MongoDB URI
+cd forever-backend/ForeverEcom.API
+# Update appsettings.json with your PostgreSQL connection string
 
 # Frontend (in a new terminal)
 cd app
@@ -43,8 +42,8 @@ cp .env.example .env
 ### 2. Seed the Database
 
 ```bash
-cd forever-backend
-npm run seed
+cd forever-backend/ForeverEcom.API
+dotnet run  # Seeding happens automatically on startup
 ```
 
 This creates:
@@ -56,9 +55,9 @@ This creates:
 ### 3. Start the Servers
 
 ```bash
-# Backend (port 5000)
-cd forever-backend
-npm run dev
+# Backend (port 5253 or 7089)
+cd forever-backend/ForeverEcom.API
+dotnet run
 
 # Frontend (port 5173)
 cd app
@@ -104,13 +103,13 @@ npm run dev
 ## Tech Stack
 
 ### Backend
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Language**: TypeScript
-- **Database**: MongoDB + Mongoose
-- **Auth**: JWT + bcrypt
+- **Runtime**: .NET Core
+- **Framework**: ASP.NET Core Web API
+- **Language**: C#
+- **Database**: PostgreSQL + Entity Framework Core
+- **Auth**: JWT Bearer Authentication
 - **Payments**: Stripe (test mode)
-- **Email**: Nodemailer
+- **Email**: MailKit / SMTP
 - **Images**: Cloudinary (optional)
 
 ### Frontend
@@ -197,15 +196,18 @@ npm run dev
 
 ## Configuration
 
-### Backend (.env)
-```env
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/forever-ecommerce
-JWT_SECRET=your_secret_key
-STRIPE_SECRET_KEY=sk_test_...
-CLOUDINARY_CLOUD_NAME=...
-SMTP_USER=...
-SMTP_PASS=...
+### Backend (appsettings.json)
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Database=forever_ecom;Username=postgres;Password=your_password"
+  },
+  "Jwt": {
+    "Key": "your_super_secret_key",
+    "Issuer": "forever-ecom",
+    "Audience": "forever-users"
+  }
+}
 ```
 
 ### Frontend (.env)
@@ -216,10 +218,10 @@ VITE_STRIPE_PUBLIC_KEY=pk_test_...
 
 ## Deployment
 
-### Backend (Render/Railway/Heroku)
-1. Set environment variables
-2. Connect to MongoDB Atlas
-3. Deploy with `npm start`
+### Backend (Render/Azure/Heroku)
+1. Set ASP.NET Core environment variables
+2. Connect to managed PostgreSQL database
+3. Deploy via Dockerfile or native .NET build
 
 ### Frontend (Vercel/Netlify)
 1. Build with `npm run build`
